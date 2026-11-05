@@ -1,6 +1,11 @@
 name: Sync LeetCode
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - sync.py
+      - .github/workflows/sync.yml
   schedule:
     - cron: '17,47 * * * *'
   workflow_dispatch:
