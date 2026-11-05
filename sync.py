@@ -9,7 +9,6 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
 from urllib.request import Request, build_opener, HTTPRedirectHandler
 
 
@@ -28,6 +27,23 @@ query submissionDetails($submissionId: Int!) {
   submissionDetails(submissionId: $submissionId) {
     code statusCode timestamp lang { name }
     question { titleSlug difficulty }
+  }
+}
+"""
+PROGRESS_QUERY = """
+query userProgressQuestionList($filters: UserProgressQuestionListInput) {
+  userProgressQuestionList(filters: $filters) {
+    questions { title titleSlug lastSubmittedAt }
+  }
+}
+"""
+SUBMISSIONS_QUERY = """
+query submissions($slug: String!) {
+  latest: questionSubmissionList(questionSlug: $slug, offset: 0, limit: 1) {
+    submissions { statusDisplay isPending }
+  }
+  accepted: questionSubmissionList(questionSlug: $slug, offset: 0, limit: 1, status: 10) {
+    submissions { id statusDisplay }
   }
 }
 """
@@ -108,28 +124,44 @@ class LeetCode:
             raise SyncError("LeetCode session is not signed in; refresh the cookies.")
         return status["username"]
 
-    def history(self, checkpoint):
-        """Page through the account's complete history, newest first."""
-        offset, lastkey = 0, ""
-        previous_page = None
+    def history(self, problems):
+        """List all solved problems; fetch latest AC only when a problem changes."""
+        offset = 0
+        seen = set()
         while True:
-            params = urlencode({"offset": offset, "limit": 20, "lastkey": lastkey})
-            page = self.request("/api/submissions/?" + params)
-            rows = page.get("submissions_dump")
-            if not isinstance(rows, list) or not isinstance(page.get("has_next"), bool):
-                raise SyncError("Unexpected submission history; refusing an incomplete import.")
-            signature = tuple(str(row["id"]) for row in rows)
-            if signature == previous_page or (not rows and page["has_next"]):
-                raise SyncError("Submission pagination stalled; no checkpoint saved.")
-            previous_page = signature
-            for row in rows:
-                if str(row["id"]) == checkpoint:
-                    return
-                yield row
-            if not page["has_next"]:
+            data = self.graphql(PROGRESS_QUERY, {"filters": {
+                "questionStatus": "SOLVED", "skip": offset, "limit": 100,
+            }})
+            page = data.get("userProgressQuestionList")
+            questions = page.get("questions") if isinstance(page, dict) else None
+            if not isinstance(questions, list):
+                raise SyncError("Unexpected solved-problem history; refusing an incomplete import.")
+            for question in questions:
+                slug = question["titleSlug"]
+                if slug in seen:
+                    raise SyncError("Solved-problem pagination repeated a problem; retry later.")
+                seen.add(slug)
+                if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+                    raise SyncError("Invalid problem slug in solved-problem history.")
+                stamp = question.get("lastSubmittedAt")
+                if stamp and problems.get(slug, {}).get("last_submitted_at") == stamp:
+                    continue
+                submissions = self.graphql(SUBMISSIONS_QUERY, {"slug": slug})
+                accepted = submissions.get("accepted", {}).get("submissions", [])
+                latest = submissions.get("latest", {}).get("submissions", [])
+                if not accepted or accepted[0].get("statusDisplay") != "Accepted" or not latest:
+                    raise SyncError(f"Cannot find Accepted history for solved problem {slug}.")
+                pending = latest[0].get("isPending") or latest[0].get("statusDisplay") in {
+                    None, "Pending", "Judging", "Started",
+                }
+                yield {
+                    "id": accepted[0]["id"], "title_slug": slug, "title": question["title"],
+                    "status_display": "Accepted", "is_pending": bool(pending),
+                    "last_submitted_at": None if pending else stamp,
+                }
+            if len(questions) < 100:
                 return
-            offset += len(rows)
-            lastkey = page.get("last_key", "")
+            offset += len(questions)
 
     def detail(self, submission_id):
         detail = self.graphql(DETAIL_QUERY, {"submissionId": int(submission_id)}).get("submissionDetails")
@@ -194,7 +226,10 @@ def save_solution(root, row, detail, previous):
         f"Difficulty: {difficulty}  \nLanguage: {language}  \nSubmitted: {submitted}\n"
     )
     readme_path.write_text(readme, encoding="utf-8")
-    return {"id": str(row["id"]), "path": relative}
+    return {
+        "id": str(row["id"]), "path": relative,
+        "last_submitted_at": row.get("last_submitted_at"),
+    }
 
 
 def sync(client, root, dry_run=False):
@@ -207,11 +242,13 @@ def sync(client, root, dry_run=False):
     username = client.username()
     if state.get("username") not in (None, username):
         raise SyncError("LeetCode account differs from the saved sync state.")
-    accepted, newest_id, pending = collect(client.history(state.get("checkpoint")))
+    accepted, newest_id, pending = collect(client.history(state["problems"]))
     updated = 0
     for slug, row in sorted(accepted.items()):
         previous = state["problems"].get(slug)
         if previous and int(previous["id"]) >= int(row["id"]):
+            if not dry_run:
+                previous["last_submitted_at"] = row.get("last_submitted_at")
             continue
         detail = client.detail(row["id"])
         if not dry_run:
@@ -221,7 +258,7 @@ def sync(client, root, dry_run=False):
     if not dry_run:
         state["username"] = username
         if newest_id and not pending:
-            state["checkpoint"] = newest_id
+            state["checkpoint"] = str(max(int(newest_id), int(state.get("checkpoint") or 0)))
         temporary = state_path.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(state, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         temporary.replace(state_path)

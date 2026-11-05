@@ -7,16 +7,18 @@ library only: no packages, database, AI model, or VPS.
 ## How it works
 
 1. Authenticate with your LeetCode session and verify the signed-in account.
-2. On the first run, paginate through the account's entire available submission
-   history. Keep the newest Accepted submission per problem, ignoring failed attempts.
+2. On the first run, paginate through all solved problems via GraphQL, then
+   select the newest Accepted submission per problem, ignoring failed attempts.
 3. Fetch source code only for those selected submissions and write
    `solutions/<difficulty>/<problem-slug>/solution.<extension>` plus a short README with links.
    Difficulty comes from LeetCode and maps to `easy`, `medium`, or `hard`.
 4. Store problem/submission IDs and an incremental checkpoint in `.leetcode-sync.json`.
 5. GitHub Actions commits solutions and state together, then pushes to this repository.
 
-Later runs stop reading history at the saved checkpoint. No new Accepted means
-no source-code requests and no commit. A newer Accepted for an existing problem
+Later runs compare each problem's last submission time to the saved state.
+Unchanged problems need no submission-detail or source-code requests. If a changed
+problem has no newer Accepted, only its cached timestamp is updated; this can
+produce a metadata-only commit. A newer Accepted for an existing problem
 replaces its solution; older versions remain in Git history. Changing language
 removes the previous solution file so each problem still has one solution.
 An unknown language is preserved as `.txt`.
@@ -70,6 +72,8 @@ to your account. This repository defaults to `hajendra herlambang`
 Open **Actions → Sync LeetCode → Run workflow** to perform the first import.
 Afterward it runs at minutes **17 and 47** each hour. GitHub may delay scheduled
 runs, so this is roughly every 30 minutes, not instant synchronization.
+Changes to `sync.py` or the workflow on `main` also trigger a run. Solution
+commits do not trigger another run.
 The workflow serializes runs to prevent two imports from overwriting state.
 
 If branch protection blocks direct pushes, use a dedicated repository/branch
@@ -102,8 +106,9 @@ python3 -m unittest -v
 
 - Requests have a 30-second timeout, at least one second between requests, and
   bounded retries for rate limits and transient network/server errors.
-- Pending/judging submissions keep the previous checkpoint so their final
-  verdict is checked again. Only Accepted source is saved.
+- Pending/judging submissions keep the previous checkpoint and do not cache
+  the problem's update time, so their final verdict is checked again.
+  Only Accepted source is saved.
 - If any fetch/write fails, the script exits unsuccessfully and the workflow
   skips the commit. The next fresh checkout retries from the committed state.
   A failed local run can leave uncommitted solution files; rerun to finish.

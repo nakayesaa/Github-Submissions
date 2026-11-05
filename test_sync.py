@@ -8,9 +8,8 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import Mock, patch
 from urllib.error import HTTPError
-from urllib.parse import parse_qs, urlparse
 
-from sync import LeetCode, STATE_FILE, SyncError, collect, save_solution, sync
+from sync import LeetCode, PROGRESS_QUERY, STATE_FILE, SyncError, collect, save_solution, sync
 
 
 def submission(number, slug="two-sum", status="Accepted"):
@@ -55,7 +54,7 @@ class SyncTests(unittest.TestCase):
         original = (self.root / STATE_FILE).read_bytes()
         self.client.detail.reset_mock()
         self.assertEqual(self.run_sync([submission(5, status="Wrong Answer")]), 0)
-        self.client.history.assert_called_with("4")
+        self.assertIn("two-sum", self.client.history.call_args.args[0])
         self.client.detail.assert_not_called()
         self.assertEqual((self.root / STATE_FILE).read_bytes(), original)
 
@@ -126,26 +125,48 @@ class SyncTests(unittest.TestCase):
         with self.assertRaises(SyncError):
             save_solution(self.root, submission(1), detail(), None)
 
-    def test_history_paginates_and_stops_at_checkpoint(self):
+    def test_history_paginates_and_skips_unchanged_problems(self):
         client = LeetCode("session", "csrf")
-        client.request = Mock(side_effect=[
-            {"submissions_dump": [submission(4), submission(3)], "has_next": True, "last_key": "next"},
-            {"submissions_dump": [submission(2), submission(1)], "has_next": True},
-        ])
-        self.assertEqual([row["id"] for row in client.history("2")], [4, 3])
-        query = parse_qs(urlparse(client.request.call_args.args[0]).query)
-        self.assertEqual(query["offset"], ["2"])
-        self.assertEqual(query["lastkey"], ["next"])
+        questions = [{"title": f"Example {i}", "titleSlug": f"example-{i}", "lastSubmittedAt": "now"} for i in range(101)]
+        cached = {q["titleSlug"]: {"last_submitted_at": "now"} for q in questions[1:100]}
+
+        def graphql(query, variables):
+            if query == PROGRESS_QUERY:
+                offset = variables["filters"]["skip"]
+                return {"userProgressQuestionList": {"questions": questions[offset:offset + 100]}}
+            return {
+                "accepted": {"submissions": [{"id": 7, "statusDisplay": "Accepted"}]},
+                "latest": {"submissions": [{"statusDisplay": "Wrong Answer", "isPending": False}]},
+            }
+
+        client.graphql = Mock(side_effect=graphql)
+        rows = list(client.history(cached))
+        self.assertEqual([row["title_slug"] for row in rows], ["example-0", "example-100"])
+        self.assertEqual(client.graphql.call_count, 4)  # Two pages, two changed problems.
 
     def test_repeated_page_or_malformed_history_fails_closed(self):
         client = LeetCode("session", "csrf")
-        page = {"submissions_dump": [submission(1)], "has_next": True}
-        client.request = Mock(return_value=page)
+        questions = [{"title": "Example", "titleSlug": f"example-{i}", "lastSubmittedAt": "now"} for i in range(100)]
+        cached = {q["titleSlug"]: {"last_submitted_at": "now"} for q in questions}
+        client.graphql = Mock(return_value={"userProgressQuestionList": {"questions": questions}})
         with self.assertRaises(SyncError):
-            list(client.history(None))
-        client.request.return_value = {"submissions_dump": []}
+            list(client.history(cached))
+        client.graphql.return_value = {"userProgressQuestionList": None}
         with self.assertRaises(SyncError):
-            list(client.history(None))
+            list(client.history({}))
+
+    def test_graphql_pending_verdict_does_not_cache_problem_timestamp(self):
+        client = LeetCode("session", "csrf")
+        client.graphql = Mock(side_effect=[
+            {"userProgressQuestionList": {"questions": [{
+                "title": "Two Sum", "titleSlug": "two-sum", "lastSubmittedAt": "now",
+            }]}},
+            {"accepted": {"submissions": [{"id": 1, "statusDisplay": "Accepted"}]},
+             "latest": {"submissions": [{"statusDisplay": "Judging", "isPending": True}]}},
+        ])
+        row, = list(client.history({}))
+        self.assertTrue(row["is_pending"])
+        self.assertIsNone(row["last_submitted_at"])
 
     @patch("sync.time.sleep")
     def test_rate_limit_retries_and_auth_failure_does_not(self, sleep):
