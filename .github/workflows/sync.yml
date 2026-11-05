@@ -7,7 +7,7 @@ on:
       - sync.py
       - .github/workflows/sync.yml
   schedule:
-    - cron: '27,57 * * * *'
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
