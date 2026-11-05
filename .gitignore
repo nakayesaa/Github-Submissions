@@ -1,0 +1,6 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.leetcode-sync.json.tmp
