@@ -162,6 +162,24 @@ class SyncTests(unittest.TestCase):
             client.request("/graphql/")
         self.assertNotIn("private-session", str(error.exception))
 
+    @patch("sync.time.sleep")
+    def test_forbidden_response_reports_cause_without_response_or_secrets(self, sleep):
+        client = LeetCode("private-session", "private-csrf")
+        cases = [
+            ({"cf-mitigated": "challenge"}, b"private-session", "Cloudflare challenge"),
+            ({}, b"CSRF verification failed. private-csrf", "CSRF validation failed"),
+        ]
+        for headers, body, expected in cases:
+            with self.subTest(expected=expected):
+                client.opener.open = Mock(side_effect=HTTPError(
+                    "https://leetcode.com", 403, "Forbidden", headers, io.BytesIO(body),
+                ))
+                with self.assertRaises(SyncError) as error:
+                    client.request("/graphql/")
+                self.assertIn(expected, str(error.exception))
+                self.assertNotIn("private-session", str(error.exception))
+                self.assertNotIn("private-csrf", str(error.exception))
+
 
 if __name__ == "__main__":
     unittest.main()

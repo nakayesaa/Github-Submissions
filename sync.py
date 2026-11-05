@@ -74,9 +74,15 @@ class LeetCode:
                 return result
             except HTTPError as error:
                 if error.code in (401, 403):
+                    body = error.read(8192).decode("utf-8", errors="replace").lower() if error.fp else ""
+                    if error.headers.get("cf-mitigated") == "challenge" or "just a moment" in body:
+                        reason = "Cloudflare challenge blocked this runner; use a local runner."
+                    elif "csrf" in body:
+                        reason = "CSRF validation failed; copy both cookies from the same signed-in browser session."
+                    else:
+                        reason = "Session expired or access blocked; refresh cookies or try a local runner."
                     raise SyncError(
-                        f"LeetCode HTTP {error.code}: session expired or access blocked. "
-                        "Refresh the cookies; if it persists, try running locally."
+                        f"LeetCode {path.split('?')[0]} HTTP {error.code}: {reason}"
                     ) from None
                 if error.code != 429 and not 500 <= error.code < 600:
                     raise SyncError(f"LeetCode HTTP {error.code}; no checkpoint saved.") from None
