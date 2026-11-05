@@ -1,0 +1,35 @@
+name: Repair sync schedule
+
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/repair-schedule.yml]
+
+permissions:
+  actions: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GH_TOKEN: ${{ github.token }}
+      WORKFLOW_URL: ${{ github.api_url }}/repos/${{ github.repository }}/actions/workflows/sync.yml
+    steps:
+      - name: Disable sync workflow
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 30 \
+            -X PUT -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" "$WORKFLOW_URL/disable"
+      - name: Re-enable sync workflow
+        if: always()
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 30 --retry 2 \
+            -X PUT -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" "$WORKFLOW_URL/enable"
+      - name: Verify workflow is active
+        run: |
+          curl --fail-with-body --silent --show-error --max-time 30 \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" "$WORKFLOW_URL" \
+            | python3 -c 'import json, sys; d=json.load(sys.stdin); print("Workflow state:", d["state"]); assert d["state"] == "active"'
