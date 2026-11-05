@@ -1,0 +1,442 @@
+{
+  "checkpoint": null,
+  "problems": {
+    "aggregate-two-time-series": {
+      "id": "2083666616",
+      "last_submitted_at": null,
+      "path": "solutions/medium/aggregate-two-time-series/solution.js"
+    },
+    "alternating-groups-i": {
+      "id": "2139471253",
+      "last_submitted_at": null,
+      "path": "solutions/easy/alternating-groups-i/solution.cpp"
+    },
+    "best-time-to-buy-and-sell-stock": {
+      "id": "2086266402",
+      "last_submitted_at": null,
+      "path": "solutions/easy/best-time-to-buy-and-sell-stock/solution.cpp"
+    },
+    "calculate-delayed-arrival-time": {
+      "id": "2086247578",
+      "last_submitted_at": null,
+      "path": "solutions/easy/calculate-delayed-arrival-time/solution.cpp"
+    },
+    "check-adjacent-digit-differences": {
+      "id": "2009021425",
+      "last_submitted_at": null,
+      "path": "solutions/easy/check-adjacent-digit-differences/solution.cpp"
+    },
+    "check-divisibility-by-digit-sum-and-product": {
+      "id": "2115574553",
+      "last_submitted_at": null,
+      "path": "solutions/easy/check-divisibility-by-digit-sum-and-product/solution.cpp"
+    },
+    "cinema-seat-allocation": {
+      "id": "2112943232",
+      "last_submitted_at": null,
+      "path": "solutions/medium/cinema-seat-allocation/solution.cpp"
+    },
+    "coin-change": {
+      "id": "2187045335",
+      "last_submitted_at": null,
+      "path": "solutions/medium/coin-change/solution.cpp"
+    },
+    "construct-uniform-parity-array-i": {
+      "id": "2127830251",
+      "last_submitted_at": null,
+      "path": "solutions/easy/construct-uniform-parity-array-i/solution.c"
+    },
+    "construct-uniform-parity-array-ii": {
+      "id": "2129412489",
+      "last_submitted_at": null,
+      "path": "solutions/medium/construct-uniform-parity-array-ii/solution.cpp"
+    },
+    "container-with-most-water": {
+      "id": "1367957565",
+      "last_submitted_at": null,
+      "path": "solutions/medium/container-with-most-water/solution.js"
+    },
+    "contains-duplicate": {
+      "id": "1336128951",
+      "last_submitted_at": null,
+      "path": "solutions/easy/contains-duplicate/solution.js"
+    },
+    "count-commas-in-range": {
+      "id": "2134612211",
+      "last_submitted_at": null,
+      "path": "solutions/easy/count-commas-in-range/solution.cpp"
+    },
+    "count-commas-in-range-ii": {
+      "id": "2135713592",
+      "last_submitted_at": null,
+      "path": "solutions/medium/count-commas-in-range-ii/solution.cpp"
+    },
+    "count-symmetric-integers": {
+      "id": "2087307029",
+      "last_submitted_at": null,
+      "path": "solutions/easy/count-symmetric-integers/solution.cpp"
+    },
+    "count-valid-prefixes": {
+      "id": "2097263581",
+      "last_submitted_at": null,
+      "path": "solutions/easy/count-valid-prefixes/solution.cpp"
+    },
+    "count-values-with-equally-spaced-occurrences-i": {
+      "id": "2139792796",
+      "last_submitted_at": null,
+      "path": "solutions/easy/count-values-with-equally-spaced-occurrences-i/solution.cpp"
+    },
+    "count-values-with-equally-spaced-occurrences-ii": {
+      "id": "2139801863",
+      "last_submitted_at": null,
+      "path": "solutions/medium/count-values-with-equally-spaced-occurrences-ii/solution.cpp"
+    },
+    "distribute-elements-into-two-arrays-i": {
+      "id": "2113301512",
+      "last_submitted_at": null,
+      "path": "solutions/easy/distribute-elements-into-two-arrays-i/solution.cpp"
+    },
+    "elevator-requests-i": {
+      "id": "2108028187",
+      "last_submitted_at": null,
+      "path": "solutions/easy/elevator-requests-i/solution.cpp"
+    },
+    "find-players-with-zero-or-one-losses": {
+      "id": "2131084414",
+      "last_submitted_at": null,
+      "path": "solutions/medium/find-players-with-zero-or-one-losses/solution.cpp"
+    },
+    "find-target-indices-after-sorting-array": {
+      "id": "2176298508",
+      "last_submitted_at": null,
+      "path": "solutions/easy/find-target-indices-after-sorting-array/solution.cpp"
+    },
+    "find-the-difference": {
+      "id": "1336511732",
+      "last_submitted_at": null,
+      "path": "solutions/easy/find-the-difference/solution.js"
+    },
+    "find-the-distance-value-between-two-arrays": {
+      "id": "2189888687",
+      "last_submitted_at": null,
+      "path": "solutions/easy/find-the-distance-value-between-two-arrays/solution.cpp"
+    },
+    "find-the-largest-almost-missing-integer": {
+      "id": "2112052027",
+      "last_submitted_at": null,
+      "path": "solutions/easy/find-the-largest-almost-missing-integer/solution.cpp"
+    },
+    "generate-a-string-with-characters-that-have-odd-counts": {
+      "id": "2085491092",
+      "last_submitted_at": null,
+      "path": "solutions/easy/generate-a-string-with-characters-that-have-odd-counts/solution.cpp"
+    },
+    "get-maximum-in-generated-array": {
+      "id": "2190005107",
+      "last_submitted_at": null,
+      "path": "solutions/easy/get-maximum-in-generated-array/solution.cpp"
+    },
+    "group-anagrams": {
+      "id": "1339115304",
+      "last_submitted_at": null,
+      "path": "solutions/medium/group-anagrams/solution.js"
+    },
+    "is-subsequence": {
+      "id": "1359938957",
+      "last_submitted_at": null,
+      "path": "solutions/easy/is-subsequence/solution.js"
+    },
+    "kids-with-the-greatest-number-of-candies": {
+      "id": "1330624204",
+      "last_submitted_at": null,
+      "path": "solutions/easy/kids-with-the-greatest-number-of-candies/solution.js"
+    },
+    "kth-distinct-string-in-an-array": {
+      "id": "2107057471",
+      "last_submitted_at": null,
+      "path": "solutions/easy/kth-distinct-string-in-an-array/solution.cpp"
+    },
+    "largest-integer-with-given-digit-sum": {
+      "id": "2083595643",
+      "last_submitted_at": null,
+      "path": "solutions/easy/largest-integer-with-given-digit-sum/solution.cpp"
+    },
+    "lexicographically-largest-string-after-pair-transformations": {
+      "id": "2124048538",
+      "last_submitted_at": null,
+      "path": "solutions/medium/lexicographically-largest-string-after-pair-transformations/solution.cpp"
+    },
+    "longest-harmonious-subsequence": {
+      "id": "2123318237",
+      "last_submitted_at": null,
+      "path": "solutions/easy/longest-harmonious-subsequence/solution.cpp"
+    },
+    "longest-palindrome": {
+      "id": "1353108266",
+      "last_submitted_at": null,
+      "path": "solutions/easy/longest-palindrome/solution.js"
+    },
+    "longest-subsequence-with-non-zero-bitwise-xor": {
+      "id": "2107132672",
+      "last_submitted_at": null,
+      "path": "solutions/medium/longest-subsequence-with-non-zero-bitwise-xor/solution.cpp"
+    },
+    "longest-substring-without-repeating-characters": {
+      "id": "2189326619",
+      "last_submitted_at": null,
+      "path": "solutions/medium/longest-substring-without-repeating-characters/solution.cpp"
+    },
+    "longest-uncommon-subsequence-i": {
+      "id": "2057607297",
+      "last_submitted_at": null,
+      "path": "solutions/easy/longest-uncommon-subsequence-i/solution.cpp"
+    },
+    "maximize-sum-of-squares-of-digits": {
+      "id": "2175535019",
+      "last_submitted_at": null,
+      "path": "solutions/medium/maximize-sum-of-squares-of-digits/solution.cpp"
+    },
+    "maximum-difference-between-even-and-odd-frequency-i": {
+      "id": "2087971618",
+      "last_submitted_at": null,
+      "path": "solutions/easy/maximum-difference-between-even-and-odd-frequency-i/solution.cpp"
+    },
+    "maximum-gap": {
+      "id": "1339414602",
+      "last_submitted_at": null,
+      "path": "solutions/medium/maximum-gap/solution.js"
+    },
+    "maximum-length-substring-with-two-occurrences": {
+      "id": "2106666538",
+      "last_submitted_at": null,
+      "path": "solutions/easy/maximum-length-substring-with-two-occurrences/solution.cpp"
+    },
+    "maximum-product-of-three-numbers": {
+      "id": "1339164894",
+      "last_submitted_at": null,
+      "path": "solutions/easy/maximum-product-of-three-numbers/solution.js"
+    },
+    "maximum-sum-with-at-most-k-elements": {
+      "id": "2188449247",
+      "last_submitted_at": null,
+      "path": "solutions/medium/maximum-sum-with-at-most-k-elements/solution.cpp"
+    },
+    "merge-k-sorted-lists": {
+      "id": "2079338107",
+      "last_submitted_at": null,
+      "path": "solutions/hard/merge-k-sorted-lists/solution.cpp"
+    },
+    "merge-sorted-array": {
+      "id": "1335484840",
+      "last_submitted_at": null,
+      "path": "solutions/easy/merge-sorted-array/solution.js"
+    },
+    "merge-strings-alternately": {
+      "id": "1330599747",
+      "last_submitted_at": null,
+      "path": "solutions/easy/merge-strings-alternately/solution.js"
+    },
+    "minimum-bishop-moves-to-reach-target": {
+      "id": "2123954784",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-bishop-moves-to-reach-target/solution.cpp"
+    },
+    "minimum-cost-to-move-chips-to-the-same-position": {
+      "id": "2095108256",
+      "last_submitted_at": null,
+      "path": "solutions/easy/minimum-cost-to-move-chips-to-the-same-position/solution.cpp"
+    },
+    "minimum-distance-to-the-target-element": {
+      "id": "2130569578",
+      "last_submitted_at": null,
+      "path": "solutions/easy/minimum-distance-to-the-target-element/solution.cpp"
+    },
+    "minimum-falling-path-sum": {
+      "id": "2186444303",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-falling-path-sum/solution.cpp"
+    },
+    "minimum-moves-to-equal-array-elements-ii": {
+      "id": "2187733044",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-moves-to-equal-array-elements-ii/solution.cpp"
+    },
+    "minimum-moves-to-equal-array-elements-iii": {
+      "id": "2188161815",
+      "last_submitted_at": null,
+      "path": "solutions/easy/minimum-moves-to-equal-array-elements-iii/solution.cpp"
+    },
+    "minimum-number-of-operations-to-make-word-k-periodic": {
+      "id": "2175206157",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-number-of-operations-to-make-word-k-periodic/solution.cpp"
+    },
+    "minimum-operations-to-make-a-rotated-palindrome-i": {
+      "id": "2108285816",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-operations-to-make-a-rotated-palindrome-i/solution.cpp"
+    },
+    "minimum-operations-to-make-a-special-number": {
+      "id": "2130556561",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-operations-to-make-a-special-number/solution.cpp"
+    },
+    "minimum-path-sum": {
+      "id": "2186520352",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-path-sum/solution.cpp"
+    },
+    "minimum-string-length-after-removing-substrings": {
+      "id": "2054847480",
+      "last_submitted_at": null,
+      "path": "solutions/easy/minimum-string-length-after-removing-substrings/solution.cpp"
+    },
+    "minimum-sum-of-mountain-triplets-i": {
+      "id": "2131618672",
+      "last_submitted_at": null,
+      "path": "solutions/easy/minimum-sum-of-mountain-triplets-i/solution.cpp"
+    },
+    "minimum-total-cost-to-process-all-elements": {
+      "id": "2085492104",
+      "last_submitted_at": null,
+      "path": "solutions/medium/minimum-total-cost-to-process-all-elements/solution.cpp"
+    },
+    "minimum-value-of-merged-integers": {
+      "id": "2187082438",
+      "last_submitted_at": null,
+      "path": "solutions/easy/minimum-value-of-merged-integers/solution.cpp"
+    },
+    "missing-number": {
+      "id": "1336484169",
+      "last_submitted_at": null,
+      "path": "solutions/easy/missing-number/solution.js"
+    },
+    "most-common-word": {
+      "id": "2087546234",
+      "last_submitted_at": null,
+      "path": "solutions/easy/most-common-word/solution.cpp"
+    },
+    "nearest-available-drone": {
+      "id": "2116329886",
+      "last_submitted_at": null,
+      "path": "solutions/easy/nearest-available-drone/solution.cpp"
+    },
+    "nth-highest-salary": {
+      "id": "2054691219",
+      "last_submitted_at": null,
+      "path": "solutions/medium/nth-highest-salary/solution.sql"
+    },
+    "number-of-distinct-averages": {
+      "id": "2189611136",
+      "last_submitted_at": null,
+      "path": "solutions/easy/number-of-distinct-averages/solution.cpp"
+    },
+    "number-of-elapsed-seconds-between-two-times": {
+      "id": "2085492022",
+      "last_submitted_at": null,
+      "path": "solutions/easy/number-of-elapsed-seconds-between-two-times/solution.cpp"
+    },
+    "ransom-note": {
+      "id": "1366343462",
+      "last_submitted_at": null,
+      "path": "solutions/easy/ransom-note/solution.js"
+    },
+    "relative-ranks": {
+      "id": "1337447569",
+      "last_submitted_at": null,
+      "path": "solutions/easy/relative-ranks/solution.js"
+    },
+    "replace-elements-with-greatest-element-on-right-side": {
+      "id": "2089911386",
+      "last_submitted_at": null,
+      "path": "solutions/easy/replace-elements-with-greatest-element-on-right-side/solution.cpp"
+    },
+    "reverse-degree-of-a-string": {
+      "id": "2147810416",
+      "last_submitted_at": null,
+      "path": "solutions/easy/reverse-degree-of-a-string/solution.cpp"
+    },
+    "second-highest-salary": {
+      "id": "2054688271",
+      "last_submitted_at": null,
+      "path": "solutions/medium/second-highest-salary/solution.sql"
+    },
+    "smallest-index-with-digit-sum-equal-to-index": {
+      "id": "2152343479",
+      "last_submitted_at": null,
+      "path": "solutions/easy/smallest-index-with-digit-sum-equal-to-index/solution.cpp"
+    },
+    "smallest-missing-multiple-of-k": {
+      "id": "2119021580",
+      "last_submitted_at": null,
+      "path": "solutions/easy/smallest-missing-multiple-of-k/solution.cpp"
+    },
+    "smallest-stable-index-i": {
+      "id": "2130412368",
+      "last_submitted_at": null,
+      "path": "solutions/easy/smallest-stable-index-i/solution.cpp"
+    },
+    "smallest-stable-index-ii": {
+      "id": "2131190953",
+      "last_submitted_at": null,
+      "path": "solutions/medium/smallest-stable-index-ii/solution.cpp"
+    },
+    "sort-the-jumbled-numbers": {
+      "id": "2169400127",
+      "last_submitted_at": null,
+      "path": "solutions/medium/sort-the-jumbled-numbers/solution.cpp"
+    },
+    "split-array-by-prime-indices": {
+      "id": "2190010100",
+      "last_submitted_at": null,
+      "path": "solutions/medium/split-array-by-prime-indices/solution.cpp"
+    },
+    "sum-in-a-matrix": {
+      "id": "2169163948",
+      "last_submitted_at": null,
+      "path": "solutions/medium/sum-in-a-matrix/solution.cpp"
+    },
+    "sum-of-integers-with-maximum-digit-range": {
+      "id": "2095127795",
+      "last_submitted_at": null,
+      "path": "solutions/easy/sum-of-integers-with-maximum-digit-range/solution.cpp"
+    },
+    "sum-of-primes-between-number-and-its-reverse": {
+      "id": "2089131899",
+      "last_submitted_at": null,
+      "path": "solutions/medium/sum-of-primes-between-number-and-its-reverse/solution.cpp"
+    },
+    "sum-of-squares-of-special-elements": {
+      "id": "2169149378",
+      "last_submitted_at": null,
+      "path": "solutions/easy/sum-of-squares-of-special-elements/solution.cpp"
+    },
+    "the-k-strongest-values-in-an-array": {
+      "id": "2131216841",
+      "last_submitted_at": null,
+      "path": "solutions/medium/the-k-strongest-values-in-an-array/solution.cpp"
+    },
+    "third-maximum-number": {
+      "id": "1336530047",
+      "last_submitted_at": null,
+      "path": "solutions/easy/third-maximum-number/solution.js"
+    },
+    "unique-paths": {
+      "id": "2186179644",
+      "last_submitted_at": null,
+      "path": "solutions/medium/unique-paths/solution.cpp"
+    },
+    "unique-paths-ii": {
+      "id": "2186424781",
+      "last_submitted_at": null,
+      "path": "solutions/medium/unique-paths-ii/solution.cpp"
+    },
+    "valid-anagram": {
+      "id": "1336193761",
+      "last_submitted_at": null,
+      "path": "solutions/easy/valid-anagram/solution.js"
+    }
+  },
+  "username": "Anki__",
+  "version": 1
+}
