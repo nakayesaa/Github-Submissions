@@ -191,6 +191,11 @@
       "last_submitted_at": null,
       "path": "solutions/easy/longest-uncommon-subsequence-i/solution.cpp"
     },
+    "maximize-active-section-with-trade-i": {
+      "id": "2190071307",
+      "last_submitted_at": null,
+      "path": "solutions/medium/maximize-active-section-with-trade-i/solution.cpp"
+    },
     "maximize-sum-of-squares-of-digits": {
       "id": "2175535019",
       "last_submitted_at": null,
