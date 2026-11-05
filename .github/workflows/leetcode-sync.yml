@@ -5,9 +5,9 @@ on:
     branches: [main]
     paths:
       - sync.py
-      - .github/workflows/sync.yml
+      - .github/workflows/leetcode-sync.yml
   schedule:
-    - cron: '7,37 * * * *'
+    - cron: '13,43 * * * *'
   workflow_dispatch:
 
 permissions:
